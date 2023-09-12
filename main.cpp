@@ -80,6 +80,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 				Block_Speed = 2;
 
+				Score = 0;
+
 				GameFrame = 0;
 			}
 			break;
