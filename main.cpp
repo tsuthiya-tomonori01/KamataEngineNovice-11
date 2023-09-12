@@ -22,10 +22,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int Hit_Circle_PosY[2] = { 200,520 };
 	int Hit_Circle_Radius[2] = { 70, 70 };
 
-	bool Block_Flag_1[4] = {};
-	bool Block_Flag_2[4] = {};
-	bool Block_Flag_3[4] = {};
-	bool Block_Flag_4[4] = {};
+	bool Block_Flag_1[100] = {};
 
 	bool Block_2_Flag_1[4] = {};
 	bool Block_2_Flag_2[4] = {};
@@ -35,6 +32,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int Block_Speed = 0;
 
 	int GameFrame = 0;
+
+	int FlagFrame[4] = {};
 
 	int Score = 0;
 
@@ -77,9 +76,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 				for (int i = 0; i < 4; i++) {
 					Block_Flag_1[i] = 1;
-					Block_Flag_2[i] = 1;
-					Block_Flag_3[i] = 1;
-					Block_Flag_4[i] = 1;
 				}
 
 				Block_Speed = 2;
@@ -118,7 +114,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 					//フラグ
 					Block_Flag_1[i] = 1;
-					Block_2_Flag_1[i] = 0;
+					
 				}
 
 				if (Block_PosY[i] >= 870 && Block_color[i] == 1)
@@ -127,8 +123,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					Block_color[i] = rand() % 4;
 
 					//フラグ
-					Block_Flag_2[i] = 1;
-					Block_2_Flag_2[i] = 0;
+					Block_Flag_1[i] = 1;
+					
 				}
 
 				if (Block_PosY[i] >= 870 && Block_color[i] == 2)
@@ -137,8 +133,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					Block_color[i] = rand() % 4;
 
 					//フラグ
-					Block_Flag_3[i] = 1;
-					Block_2_Flag_3[i] = 0;
+					Block_Flag_1[i] = 1;
+					
 				}
 
 				if (Block_PosY[i] >= 870 && Block_color[i] == 3)
@@ -147,8 +143,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					Block_color[i] = rand() % 4;
 
 					//フラグ
-					Block_Flag_4[i] = 1;
-					Block_2_Flag_4[i] = 0;
+					Block_Flag_1[i] = 1;
+					
 				}
 
 				//移動処理
@@ -161,18 +157,20 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						{
 							Block_Flag_1[i] = 0;
 							Block_2_Flag_1[i] = 1;
+							FlagFrame[i] = 0;
 
 							Score += 10;
-						}
+						}					
 					}
 
 					//青
-					if (Block_color[i] == 1 && Block_Flag_2[i] == 1)
+					if (Block_color[i] == 1 && Block_Flag_1[i] == 1)
 					{
 						if (keys[DIK_RIGHT] && preKeys[DIK_RIGHT] == 0)
 						{
-							Block_Flag_2[i] = 0;
+							Block_Flag_1[i] = 0;
 							Block_2_Flag_2[i] = 1;
+							FlagFrame[i] = 0;
 
 							Score += 10;
 						}
@@ -183,30 +181,40 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				if (490 <= Block_PosY[i] && Block_PosY[i] <= 550)
 				{
 					//緑
-					if (Block_color[i] == 2 && Block_Flag_3[i] == 1)
+					if (Block_color[i] == 2 && Block_Flag_1[i] == 1)
 					{
 						if (keys[DIK_UP] && preKeys[DIK_UP])
 						{
-							Block_Flag_3[i] = 0;
+							Block_Flag_1[i] = 0;
 							Block_2_Flag_3[i] = 1;
+							FlagFrame[i] = 0;
 
 							Score += 10;
 						}
 					}
 
 					//黒
-					if (Block_color[i] == 3 && Block_Flag_4[i] == 1)
+					if (Block_color[i] == 3 && Block_Flag_1[i] == 1)
 					{
 						if (keys[DIK_DOWN] && preKeys[DIK_DOWN])
 						{
-							Block_Flag_4[i] = 0;
+							Block_Flag_1[i] = 0;
 							Block_2_Flag_4[i] = 1;
+							FlagFrame[i] = 0;
 
 							Score += 10;
 						}
 					}
 				}
 
+				//復活処理
+				FlagFrame[i]++;
+				if (FlagFrame[i] >= 30) {
+					Block_2_Flag_1[i] = 0;
+					Block_2_Flag_2[i] = 0;
+					Block_2_Flag_3[i] = 0;
+					Block_2_Flag_4[i] = 0;
+				}
 			}
 
 			break;
@@ -221,9 +229,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 				for (int i = 0; i < 4; i++) {
 					Block_Flag_1[i] = 0;
-					Block_Flag_2[i] = 0;
-					Block_Flag_3[i] = 0;
-					Block_Flag_4[i] = 0;
 				}
 
 			}
@@ -239,9 +244,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 				for (int i = 0; i < 4; i++) {
 					Block_Flag_1[i] = 0;
-					Block_Flag_2[i] = 0;
-					Block_Flag_3[i] = 0;
-					Block_Flag_4[i] = 0;
 				}
 			}
 
@@ -285,45 +287,47 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					Novice::DrawEllipse(Block_PosX[i], Block_PosY[i], Block_Radius[i], Block_Radius[i], 0.0f, RED, kFillModeSolid);
 				}
 
-				if (Block_color[i] == 1 && Block_Flag_2[i] == 1)
+				if (Block_color[i] == 1 && Block_Flag_1[i] == 1)
 				{
 					Novice::DrawEllipse(Block_PosX[i], Block_PosY[i], Block_Radius[i], Block_Radius[i], 0.0f, BLUE, kFillModeSolid);
 				}
 
-				if (Block_color[i] == 2 && Block_Flag_3[i] == 1)
+				if (Block_color[i] == 2 && Block_Flag_1[i] == 1)
 				{
 					Novice::DrawEllipse(Block_PosX[i], Block_PosY[i], Block_Radius[i], Block_Radius[i], 0.0f, GREEN, kFillModeSolid);
 				}
 
-				if (Block_color[i] == 3 && Block_Flag_4[i] == 1)
+				if (Block_color[i] == 3 && Block_Flag_1[i] == 1)
 				{
 					Novice::DrawEllipse(Block_PosX[i], Block_PosY[i], Block_Radius[i], Block_Radius[i], 0.0f, BLACK, kFillModeSolid);
 				}
 
+				for (int j = 0; j < 4; j++) {
+					//ブロック２
+					if (Block_2_color[i] == 0 && Block_2_Flag_1[j] == 1)
+					{
+						Novice::DrawEllipse(Block_2_PosX[i], Block_2_PosY[i], Block_2_Radius[i], Block_2_Radius[i], 0.0f, RED, kFillModeSolid);
+					}
 
-				//ブロック２
-				if (Block_2_color[i] == 0 && Block_2_Flag_1[i] == 1)
-				{
-					Novice::DrawEllipse(Block_2_PosX[i], Block_2_PosY[i], Block_2_Radius[i], Block_2_Radius[i], 0.0f, RED, kFillModeSolid);
-				}
+					if (Block_2_color[i] == 1 && Block_2_Flag_2[j] == 1)
+					{
+						Novice::DrawEllipse(Block_2_PosX[i], Block_2_PosY[i], Block_2_Radius[i], Block_2_Radius[i], 0.0f, BLUE, kFillModeSolid);
+					}
 
-				if (Block_2_color[i] == 1 && Block_2_Flag_2[i] == 1)
-				{
-					Novice::DrawEllipse(Block_2_PosX[i], Block_2_PosY[i], Block_2_Radius[i], Block_2_Radius[i], 0.0f, BLUE, kFillModeSolid);
-				}
+					if (Block_2_color[i] == 2 && Block_2_Flag_3[j] == 1)
+					{
+						Novice::DrawEllipse(Block_2_PosX[i], Block_2_PosY[i], Block_2_Radius[i], Block_2_Radius[i], 0.0f, GREEN, kFillModeSolid);
+					}
 
-				if (Block_2_color[i] == 2 && Block_2_Flag_3[i] == 1)
-				{
-					Novice::DrawEllipse(Block_2_PosX[i], Block_2_PosY[i], Block_2_Radius[i], Block_2_Radius[i], 0.0f, GREEN, kFillModeSolid);
-				}
-
-				if (Block_2_color[i] == 3 && Block_2_Flag_4[i] == 1)
-				{
-					Novice::DrawEllipse(Block_2_PosX[i], Block_2_PosY[i], Block_2_Radius[i], Block_2_Radius[i], 0.0f, BLACK, kFillModeSolid);
+					if (Block_2_color[i] == 3 && Block_2_Flag_4[j] == 1)
+					{
+						Novice::DrawEllipse(Block_2_PosX[i], Block_2_PosY[i], Block_2_Radius[i], Block_2_Radius[i], 0.0f, BLACK, kFillModeSolid);
+					}
 				}
 			}
 
 			Novice::ScreenPrintf(0, 10, "Score %d", Score);
+			Novice::ScreenPrintf(0, 40, "Score %d", FlagFrame);
 		}
 
 		if (GameScene == 3)
