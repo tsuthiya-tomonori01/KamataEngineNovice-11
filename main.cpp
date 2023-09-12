@@ -49,6 +49,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// ライブラリの初期化
 	Novice::Initialize(kWindowTitle, 1280, 720);
 
+	int BackNumber = Novice::LoadTexture("number.png");
+
 	// キー入力結果を受け取る箱
 	char keys[256] = { 0 };
 	char preKeys[256] = { 0 };
@@ -397,9 +399,57 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 			}
 
-			Novice::ScreenPrintf(0, 10, "Score %d", Score);
-			Novice::ScreenPrintf(0, 30, "Time %d", count);
-			/*Novice::ScreenPrintf(0, 40, "Score %d", FlagFrame);*/
+			//スコア表示
+			int eachNumber[5] = {};
+			int number = Score;
+
+			int keta = 10000;
+			for (int i = 0; i < 5; i++)
+			{
+				eachNumber[i] = number / keta;
+				number = number % keta;
+				keta = keta / 10;
+			}
+
+			for (int i = 0; i < 5; i++)
+			{
+				Novice::DrawQuad(
+					0 + i * 26, 0,
+					0 + 32 + i * 26, 0,
+					0 + i * 26, 0 + 64,
+					0 + 32 + i * 26, 0 + 64,
+					eachNumber[i] * 32, 0,
+					32, 64,
+					BackNumber,
+					WHITE
+				);
+			}
+
+			//タイマー
+			int eachNumber1[2] = {};
+			int number1 = count;
+
+			int keta1 = 10;
+			for (int i = 0; i < 2; i++)
+			{
+				eachNumber1[i] = number1 / keta1;
+				number1 = number1 % keta1;
+				keta1 = keta1 / 10;
+			}
+
+			for (int i = 0; i < 2; i++)
+			{
+				Novice::DrawQuad(
+					0 + i * 26, 50,
+					0 + 32 + i * 26, 50,
+					0 + i * 26, 50 + 64,
+					0 + 32 + i * 26, 50 + 64,
+					eachNumber1[i] * 32, 0,
+					32, 64,
+					BackNumber,
+					WHITE
+				);
+			}
 		}
 
 		if (GameScene == 3)
