@@ -11,7 +11,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int Block_PosX[4] = { 640, 640, 640, 640 };
 	int Block_PosY[4] = { -100,-350,-600,-850 };
 	int Block_Radius[4] = { 50, 50,  50,  50 };
-	int Block_color[4]  = { 0,  1,   2,   3 };
+	int Block_color[4] = { 0,  1,   2,   3 };
 
 	int Block_2_PosX[4] = { 200, 1080, 200, 1080 };
 	int Block_2_PosY[4] = { 200, 200,  520, 520 };
@@ -22,15 +22,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int Hit_Circle_PosY[2] = { 200,520 };
 	int Hit_Circle_Radius[2] = { 70, 70 };
 
-	bool Block_Flag_1 = false;
-	bool Block_Flag_2 = false;
-	bool Block_Flag_3 = false;
-	bool Block_Flag_4 = false;
+	bool Block_Flag_1[4] = {};
+	bool Block_Flag_2[4] = {};
+	bool Block_Flag_3[4] = {};
+	bool Block_Flag_4[4] = {};
 
-	bool Block_2_Flag_1 = false;
-	bool Block_2_Flag_2 = false;
-	bool Block_2_Flag_3 = false;
-	bool Block_2_Flag_4 = false;
+	bool Block_2_Flag_1[4] = {};
+	bool Block_2_Flag_2[4] = {};
+	bool Block_2_Flag_3[4] = {};
+	bool Block_2_Flag_4[4] = {};
 
 	int Block_Speed = 0;
 
@@ -46,8 +46,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Novice::Initialize(kWindowTitle, 1280, 720);
 
 	// キー入力結果を受け取る箱
-	char keys[256] = {0};
-	char preKeys[256] = {0};
+	char keys[256] = { 0 };
+	char preKeys[256] = { 0 };
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -75,10 +75,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			{
 				GameScene = 2;
 
-				Block_Flag_1 = true;
-				Block_Flag_2 = true;
-				Block_Flag_3 = true;
-				Block_Flag_4 = true;
+				for (int i = 0; i < 4; i++) {
+					Block_Flag_1[i] = 1;
+					Block_Flag_2[i] = 1;
+					Block_Flag_3[i] = 1;
+					Block_Flag_4[i] = 1;
+				}
 
 				Block_Speed = 2;
 
@@ -115,8 +117,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					Block_color[i] = rand() % 4;
 
 					//フラグ
-					Block_Flag_1 = true;
-					Block_2_Flag_1 = false;
+					Block_Flag_1[i] = 1;
+					Block_2_Flag_1[i] = 0;
 				}
 
 				if (Block_PosY[i] >= 870 && Block_color[i] == 1)
@@ -125,8 +127,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					Block_color[i] = rand() % 4;
 
 					//フラグ
-					Block_Flag_2 = true;
-					Block_2_Flag_2 = false;
+					Block_Flag_2[i] = 1;
+					Block_2_Flag_2[i] = 0;
 				}
 
 				if (Block_PosY[i] >= 870 && Block_color[i] == 2)
@@ -135,8 +137,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					Block_color[i] = rand() % 4;
 
 					//フラグ
-					Block_Flag_3 = true;
-					Block_2_Flag_3 = false;
+					Block_Flag_3[i] = 1;
+					Block_2_Flag_3[i] = 0;
 				}
 
 				if (Block_PosY[i] >= 870 && Block_color[i] == 3)
@@ -145,32 +147,32 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					Block_color[i] = rand() % 4;
 
 					//フラグ
-					Block_Flag_4 = true;
-					Block_2_Flag_4 = false;
+					Block_Flag_4[i] = 1;
+					Block_2_Flag_4[i] = 0;
 				}
 
 				//移動処理
 				if (170 <= Block_PosY[i] && Block_PosY[i] <= 230)
 				{
 					//赤
-					if (Block_color[i] == 0 && Block_Flag_1 == true)
+					if (Block_color[i] == 0 && Block_Flag_1[i] == 1)
 					{
 						if (keys[DIK_LEFT] && preKeys[DIK_LEFT] == 0)
 						{
-							Block_Flag_1 = false;
-							Block_2_Flag_1 = true;
+							Block_Flag_1[i] = 0;
+							Block_2_Flag_1[i] = 1;
 
 							Score += 10;
 						}
 					}
 
 					//青
-					if (Block_color[i] == 1 && Block_Flag_2 == true)
+					if (Block_color[i] == 1 && Block_Flag_2[i] == 1)
 					{
 						if (keys[DIK_RIGHT] && preKeys[DIK_RIGHT] == 0)
 						{
-							Block_Flag_2 = false;
-							Block_2_Flag_2 = true;
+							Block_Flag_2[i] = 0;
+							Block_2_Flag_2[i] = 1;
 
 							Score += 10;
 						}
@@ -181,24 +183,24 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				if (490 <= Block_PosY[i] && Block_PosY[i] <= 550)
 				{
 					//緑
-					if (Block_color[i] == 2 && Block_Flag_3 == true)
+					if (Block_color[i] == 2 && Block_Flag_3[i] == 1)
 					{
 						if (keys[DIK_UP] && preKeys[DIK_UP])
 						{
-							Block_Flag_3 = false;
-							Block_2_Flag_3 = true;
+							Block_Flag_3[i] = 0;
+							Block_2_Flag_3[i] = 1;
 
 							Score += 10;
 						}
 					}
 
 					//黒
-					if (Block_color[i] == 3 && Block_Flag_4 == true)
+					if (Block_color[i] == 3 && Block_Flag_4[i] == 1)
 					{
 						if (keys[DIK_DOWN] && preKeys[DIK_DOWN])
 						{
-							Block_Flag_4 = false;
-							Block_2_Flag_4 = true;
+							Block_Flag_4[i] = 0;
+							Block_2_Flag_4[i] = 1;
 
 							Score += 10;
 						}
@@ -207,10 +209,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			}
 
-
-
-
 			break;
+
 		case 3:
 
 			if (keys[DIK_SPACE] && preKeys[DIK_SPACE])
@@ -219,11 +219,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 				Score = 0;
 
-				Block_Flag_1 = false;
-				Block_Flag_2 = false;
-				Block_Flag_3 = false;
-				Block_Flag_4 = false;
-
+				for (int i = 0; i < 4; i++) {
+					Block_Flag_1[i] = 0;
+					Block_Flag_2[i] = 0;
+					Block_Flag_3[i] = 0;
+					Block_Flag_4[i] = 0;
+				}
 
 			}
 
@@ -236,17 +237,19 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 				Score = 0;
 
-				Block_Flag_1 = false;
-				Block_Flag_2 = false;
-				Block_Flag_3 = false;
-				Block_Flag_4 = false;
+				for (int i = 0; i < 4; i++) {
+					Block_Flag_1[i] = 0;
+					Block_Flag_2[i] = 0;
+					Block_Flag_3[i] = 0;
+					Block_Flag_4[i] = 0;
+				}
 			}
 
 
 			break;
 		}
 
-		
+
 
 		///
 		/// ↑更新処理ここまで
@@ -259,12 +262,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		{
 
 		}
-		
+
 		if (GameScene == 1)
 		{
 
 		}
-		
+
 		if (GameScene == 2)
 		{
 			for (int h = 0; h < 2; h++)
@@ -277,44 +280,44 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			for (int i = 0; i < 4; i++)
 			{
 				//ブロック１
-				if (Block_color[i] == 0 && Block_Flag_1 == true)
+				if (Block_color[i] == 0 && Block_Flag_1[i] == 1)
 				{
 					Novice::DrawEllipse(Block_PosX[i], Block_PosY[i], Block_Radius[i], Block_Radius[i], 0.0f, RED, kFillModeSolid);
 				}
 
-				if (Block_color[i] == 1 && Block_Flag_2 == true)
+				if (Block_color[i] == 1 && Block_Flag_2[i] == 1)
 				{
 					Novice::DrawEllipse(Block_PosX[i], Block_PosY[i], Block_Radius[i], Block_Radius[i], 0.0f, BLUE, kFillModeSolid);
 				}
 
-				if (Block_color[i] == 2 && Block_Flag_3 == true)
+				if (Block_color[i] == 2 && Block_Flag_3[i] == 1)
 				{
 					Novice::DrawEllipse(Block_PosX[i], Block_PosY[i], Block_Radius[i], Block_Radius[i], 0.0f, GREEN, kFillModeSolid);
 				}
 
-				if (Block_color[i] == 3 && Block_Flag_4 == true)
+				if (Block_color[i] == 3 && Block_Flag_4[i] == 1)
 				{
 					Novice::DrawEllipse(Block_PosX[i], Block_PosY[i], Block_Radius[i], Block_Radius[i], 0.0f, BLACK, kFillModeSolid);
 				}
 
 
 				//ブロック２
-				if (Block_2_color[i] == 0 && Block_2_Flag_1 == true)
+				if (Block_2_color[i] == 0 && Block_2_Flag_1[i] == 1)
 				{
 					Novice::DrawEllipse(Block_2_PosX[i], Block_2_PosY[i], Block_2_Radius[i], Block_2_Radius[i], 0.0f, RED, kFillModeSolid);
 				}
 
-				if (Block_2_color[i] == 1 && Block_2_Flag_2 == true)
+				if (Block_2_color[i] == 1 && Block_2_Flag_2[i] == 1)
 				{
 					Novice::DrawEllipse(Block_2_PosX[i], Block_2_PosY[i], Block_2_Radius[i], Block_2_Radius[i], 0.0f, BLUE, kFillModeSolid);
 				}
 
-				if (Block_2_color[i] == 2 && Block_2_Flag_3 == true)
+				if (Block_2_color[i] == 2 && Block_2_Flag_3[i] == 1)
 				{
 					Novice::DrawEllipse(Block_2_PosX[i], Block_2_PosY[i], Block_2_Radius[i], Block_2_Radius[i], 0.0f, GREEN, kFillModeSolid);
 				}
 
-				if (Block_2_color[i] == 3 && Block_2_Flag_4 == true)
+				if (Block_2_color[i] == 3 && Block_2_Flag_4[i] == 1)
 				{
 					Novice::DrawEllipse(Block_2_PosX[i], Block_2_PosY[i], Block_2_Radius[i], Block_2_Radius[i], 0.0f, BLACK, kFillModeSolid);
 				}
