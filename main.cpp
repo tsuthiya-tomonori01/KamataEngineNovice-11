@@ -75,8 +75,21 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				GameScene = 2;
 
 				for (int i = 0; i < 4; i++) {
+					Block_PosY[0] = -100;
+					Block_PosY[1] = -350;
+					Block_PosY[2] = -600;
+					Block_PosY[3] = -850;
+
 					Block_Flag_1[i] = 1;
+
+					Block_2_Flag_1[i] = 0;
+					Block_2_Flag_2[i] = 0;
+					Block_2_Flag_3[i] = 0;
+					Block_2_Flag_4[i] = 0;
+
+					FlagFrame[i] = 0;
 				}
+
 
 				Block_Speed = 2;
 
@@ -91,11 +104,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (GameFrame >= 2000) {
 				Block_Speed = 3;
 			}
-			if (GameFrame >= 4000) {
+			if (GameFrame >= 3500) {
 				Block_Speed = 4;
 			}
-			if (GameFrame >= 7000) {
+			if (GameFrame >= 4500) {
 				Block_Speed = 5;
+			}
+			if (GameFrame >= 5400) {
+				GameScene = 3;
 			}
 
 			for (int i = 0; i < 4; i++)
@@ -281,12 +297,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (keys[DIK_SPACE] && preKeys[DIK_SPACE])
 			{
 				GameScene = 0;
-
-				Score = 0;
-
-				for (int i = 0; i < 4; i++) {
-					Block_Flag_1[i] = 0;
-				}
 
 			}
 
