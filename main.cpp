@@ -403,7 +403,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			int eachNumber[5] = {};
 			int number = Score;
 
-			int keta = 10000;
+			int keta = 1000;
 			for (int i = 0; i < 5; i++)
 			{
 				eachNumber[i] = number / keta;
