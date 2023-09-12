@@ -82,6 +82,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					Block_PosY[2] = -600;
 					Block_PosY[3] = -850;
 
+					Block_color[0] = 0;
+					Block_color[1] = 1;
+					Block_color[2] = 2;
+					Block_color[3] = 3;
+
+
 					Block_Flag_1[i] = 1;
 
 					Block_2_Flag_1[i] = 0;
