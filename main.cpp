@@ -234,21 +234,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 			break;
-		case 4:
-
-			if (keys[DIK_SPACE] && preKeys[DIK_SPACE])
-			{
-				GameScene = 0;
-
-				Score = 0;
-
-				for (int i = 0; i < 4; i++) {
-					Block_Flag_1[i] = 0;
-				}
-			}
-
-
-			break;
 		}
 
 
@@ -331,11 +316,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		}
 
 		if (GameScene == 3)
-		{
-
-		}
-
-		if (GameScene == 4)
 		{
 
 		}
