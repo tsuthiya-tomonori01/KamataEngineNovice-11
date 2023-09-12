@@ -41,8 +41,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	srand((unsigned int)time(NULL));
 
-
-
 	// ライブラリの初期化
 	Novice::Initialize(kWindowTitle, 1280, 720);
 
@@ -66,13 +64,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		switch (GameScene)
 		{
 		case 0:
-			if (keys[DIK_SPACE] && preKeys[DIK_SPACE])
+			if (keys[DIK_SPACE] && preKeys[DIK_SPACE] == 0)
 			{
 				GameScene = 1;
 			}
 			break;
 		case 1:
-			if (keys[DIK_SPACE] && preKeys[DIK_SPACE])
+			if (keys[DIK_SPACE] && preKeys[DIK_SPACE] == 0)
 			{
 				GameScene = 2;
 
@@ -162,13 +160,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							Block_Flag_1[i] = 0;
 							Block_2_Flag_1[i] = 1;
 							FlagFrame[i] = 0;
+							Score += 20;
+						}
 
-							Score += 10;
-						}					
-					}
-					if (Block_color[i] == 1 && Block_Flag_1[i] == 1)
-					{
-						if (keys[DIK_LEFT] && preKeys[DIK_LEFT] == 0)
+						if (keys[DIK_RIGHT] && preKeys[DIK_RIGHT] == 0)
+						{
+							Score -= 10;
+						}
+						if (keys[DIK_UP] && preKeys[DIK_UP] == 0)
+						{
+							Score -= 10;
+						}
+						if (keys[DIK_DOWN] && preKeys[DIK_DOWN] == 0)
 						{
 							Score -= 10;
 						}
@@ -182,18 +185,26 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							Block_Flag_1[i] = 0;
 							Block_2_Flag_2[i] = 1;
 							FlagFrame[i] = 0;
-
-							Score += 10;
+							Score += 20;
 						}
-					}
-					if (Block_color[i] == 0 && Block_Flag_1[i] == 1)
-					{
-						if (keys[DIK_RIGHT] && preKeys[DIK_RIGHT] == 0)
+
+						if (keys[DIK_LEFT] && preKeys[DIK_LEFT] == 0)
 						{
 							Score -= 10;
 						}
+						if (keys[DIK_UP] && preKeys[DIK_UP] == 0)
+						{
+							Score -= 10;
+						}
+						if (keys[DIK_DOWN] && preKeys[DIK_DOWN] == 0)
+						{
+							Score -= 10;
+						}
+
 					}
+
 				}
+
 
 				//移動処理
 				if (490 <= Block_PosY[i] && Block_PosY[i] <= 550)
@@ -201,42 +212,56 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					//緑
 					if (Block_color[i] == 2 && Block_Flag_1[i] == 1)
 					{
-						if (keys[DIK_UP] && preKeys[DIK_UP])
+						if (keys[DIK_UP] && preKeys[DIK_UP] == 0)
 						{
 							Block_Flag_1[i] = 0;
 							Block_2_Flag_3[i] = 1;
 							FlagFrame[i] = 0;
 
-							Score += 10;
+							Score += 20;
 						}
-					}
-					if (Block_color[i] == 3 && Block_Flag_1[i] == 1)
-					{
-						if (keys[DIK_UP] && preKeys[DIK_UP])
+
+						if (keys[DIK_LEFT] && preKeys[DIK_LEFT] == 0)
 						{
 							Score -= 10;
 						}
+						if (keys[DIK_RIGHT] && preKeys[DIK_RIGHT] == 0)
+						{
+							Score -= 10;
+						}
+						if (keys[DIK_DOWN] && preKeys[DIK_DOWN] == 0)
+						{
+							Score -= 10;
+						}
+
 					}
 
 					//黒
 					if (Block_color[i] == 3 && Block_Flag_1[i] == 1)
 					{
-						if (keys[DIK_DOWN] && preKeys[DIK_DOWN])
+						if (keys[DIK_DOWN] && preKeys[DIK_DOWN] == 0)
 						{
 							Block_Flag_1[i] = 0;
 							Block_2_Flag_4[i] = 1;
 							FlagFrame[i] = 0;
 
-							Score += 10;
+							Score += 20;
 						}
-					}
-					if (Block_color[i] == 2 && Block_Flag_1[i] == 1)
-					{
-						if (keys[DIK_DOWN] && preKeys[DIK_DOWN])
+
+						if (keys[DIK_LEFT] && preKeys[DIK_LEFT] == 0)
+						{
+							Score -= 10;
+						}
+						if (keys[DIK_RIGHT] && preKeys[DIK_RIGHT] == 0)
+						{
+							Score -= 10;
+						}
+						if (keys[DIK_UP] && preKeys[DIK_UP] == 0)
 						{
 							Score -= 10;
 						}
 					}
+
 				}
 
 				//復活処理
