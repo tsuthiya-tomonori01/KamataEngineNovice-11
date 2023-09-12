@@ -164,6 +164,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							Score += 10;
 						}					
 					}
+					if (Block_color[i] == 1 && Block_Flag_1[i] == 1)
+					{
+						if (keys[DIK_LEFT] && preKeys[DIK_LEFT] == 0)
+						{
+							Score -= 10;
+						}
+					}
 
 					//青
 					if (Block_color[i] == 1 && Block_Flag_1[i] == 1)
@@ -175,6 +182,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							FlagFrame[i] = 0;
 
 							Score += 10;
+						}
+					}
+					if (Block_color[i] == 0 && Block_Flag_1[i] == 1)
+					{
+						if (keys[DIK_RIGHT] && preKeys[DIK_RIGHT] == 0)
+						{
+							Score -= 10;
 						}
 					}
 				}
@@ -194,6 +208,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							Score += 10;
 						}
 					}
+					if (Block_color[i] == 3 && Block_Flag_1[i] == 1)
+					{
+						if (keys[DIK_UP] && preKeys[DIK_UP])
+						{
+							Score -= 10;
+						}
+					}
 
 					//黒
 					if (Block_color[i] == 3 && Block_Flag_1[i] == 1)
@@ -205,6 +226,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							FlagFrame[i] = 0;
 
 							Score += 10;
+						}
+					}
+					if (Block_color[i] == 2 && Block_Flag_1[i] == 1)
+					{
+						if (keys[DIK_DOWN] && preKeys[DIK_DOWN])
+						{
+							Score -= 10;
 						}
 					}
 				}
