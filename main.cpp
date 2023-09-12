@@ -34,7 +34,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	int Block_Speed = 0;
 
-	int Frame = 0;
+	int GameFrame = 0;
 
 	int Score = 0;
 
@@ -81,18 +81,20 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				Block_Flag_4 = true;
 
 				Block_Speed = 2;
+
+				GameFrame = 0;
 			}
 			break;
 		case 2:
 
-			Frame++;
-			if (Frame >= 2000) {
+			GameFrame++;
+			if (GameFrame >= 2000) {
 				Block_Speed = 3;
 			}
-			if (Frame >= 4000) {
+			if (GameFrame >= 4000) {
 				Block_Speed = 4;
 			}
-			if (Frame >= 7000) {
+			if (GameFrame >= 7000) {
 				Block_Speed = 5;
 			}
 
@@ -127,9 +129,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					Block_2_Flag_2 = false;
 				}
 
-				if (Block_PosY[i] >= 850 && Block_color[i] == 2)
+				if (Block_PosY[i] >= 870 && Block_color[i] == 2)
 				{
-					Block_PosY[i] = -170;
+					Block_PosY[i] = -150;
 					Block_color[i] = rand() % 4;
 
 					//フラグ
