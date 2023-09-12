@@ -41,6 +41,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	srand((unsigned int)time(NULL));
 
+	float time = 0;
+	float TimeSpeed = 1 / 60.0f;
+	int count = 0;
 
 
 	// ライブラリの初期化
@@ -87,7 +90,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					Block_color[2] = 2;
 					Block_color[3] = 3;
 
-
 					Block_Flag_1[i] = 1;
 
 					Block_2_Flag_1[i] = 0;
@@ -98,6 +100,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					FlagFrame[i] = 0;
 				}
 
+				count = 90;
 
 				Block_Speed = 2;
 
@@ -107,6 +110,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 			break;
 		case 2:
+
+			time += TimeSpeed;
+			if (time >= 1)
+			{
+				count--;
+				time = 0;
+			}
 
 			GameFrame++;
 			if (GameFrame >= 2000) {
@@ -118,9 +128,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (GameFrame >= 4500) {
 				Block_Speed = 5;
 			}
-			if (GameFrame >= 5400) {
+			if (count <= 0)
+			{
 				GameScene = 3;
 			}
+
 
 			for (int i = 0; i < 4; i++)
 			{
@@ -305,7 +317,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (keys[DIK_SPACE] && preKeys[DIK_SPACE])
 			{
 				GameScene = 0;
-
 			}
 
 			break;
@@ -387,6 +398,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 			Novice::ScreenPrintf(0, 10, "Score %d", Score);
+			Novice::ScreenPrintf(0, 30, "Time %d", count);
 			/*Novice::ScreenPrintf(0, 40, "Score %d", FlagFrame);*/
 		}
 
