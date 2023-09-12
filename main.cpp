@@ -41,6 +41,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	srand((unsigned int)time(NULL));
 
+
+
 	// ライブラリの初期化
 	Novice::Initialize(kWindowTitle, 1280, 720);
 
@@ -342,7 +344,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 			Novice::ScreenPrintf(0, 10, "Score %d", Score);
-			Novice::ScreenPrintf(0, 40, "Score %d", FlagFrame);
+			/*Novice::ScreenPrintf(0, 40, "Score %d", FlagFrame);*/
 		}
 
 		if (GameScene == 3)
